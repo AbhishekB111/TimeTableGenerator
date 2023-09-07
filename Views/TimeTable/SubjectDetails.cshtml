@@ -1,0 +1,60 @@
+﻿@model List<SubjectDetailsViewModel>
+
+@{
+	ViewData["Title"] = "Subject Details";
+}
+
+<div class="container">
+
+	<div border border-primary rounded>
+		<div class="text-info text-center">
+			<h1 class="text-success">Subject Details</h1>
+			<h4 class="text-danger">@ViewBag.Message</h4>
+		</div>
+		<hr />
+
+		<form method="post" asp-action="SubjectDetails" asp-controller="TimeTable">
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							Subject Names
+						</th>
+						<th>
+							Subject Hours
+						</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@for (int i = 0; i < ViewBag.NoOfSubjects; i++)
+					{
+						<tr>
+							<td>
+								<input asp-for="@Model[i].SubjectName" class="form-control" />
+								<span asp-validation-for="@Model[i].SubjectName" class="text-danger"></span>
+							</td>
+							<td>
+								<input asp-for="@Model[i].SubjectHours" class="form-control" style="width:50%;"/>
+								<span asp-validation-for="@Model[i].SubjectHours" class="text-danger"></span>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+
+			<input type="submit" value="Varify" class="btn btn-primary" />
+			@if (ViewBag.IsVarified == true)
+			{
+				<input type="submit" value="Generate" class="btn btn-primary" asp-action="GenerateTable" asp-controller="TimeTable" />
+			}
+			else
+			{
+				<input type="submit" value="Generate" class="btn btn-primary" asp-action="GenerateTable" asp-controller="TimeTable" disabled />
+			}
+
+		</form>
+
+	</div>
+</div>

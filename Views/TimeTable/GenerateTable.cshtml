@@ -1,0 +1,27 @@
+﻿@model List<GenerateTableViewModel>
+
+@{
+	ViewData["Title"] = "Time-Table";
+	int count = 0;
+}
+
+<div class="container">
+	<div class="text-center text-info">
+		<h1 class="text-success">Time-Table</h1>
+	</div>
+	<hr />
+	<table class="table table-bordered border-dark">
+		@for (int i = 1; i <= ViewBag.NoOfSubPerDay; i++)
+		{
+			<tr>
+				@for (int j = 1; j <= ViewBag.NoOfWorkingDays; j++)
+				{
+					<td>
+						@Model[count].SubjectName
+					</td>
+					count++;
+				}
+			</tr>
+		}
+	</table>
+</div>

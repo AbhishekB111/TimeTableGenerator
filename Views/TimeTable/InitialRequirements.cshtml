@@ -1,0 +1,70 @@
+﻿@model InitialRequirementsViewModel
+
+@{
+	ViewData["Title"] = "Initial Requirements";
+}
+
+<div class="container" onmouseover="ValidateInitialRequirements()">
+
+	<div class="border border-primary rounded">
+		<div class="text-info text-center">
+			<h1 class="text-success">Initial Requirements</h1>
+		</div>
+		<hr />
+
+		<form method="post" asp-action="InitialRequirements" asp-controller="TimeTable">
+			<div class="form-group ml-3">
+				<label asp-for="NoOfWorkingDays"></label>
+				<input asp-for="NoOfWorkingDays" onfocusout="ValidateInitialRequirements()" class="form-control col-sm-12 col-md-6" id="txtNoOfWorkingDays" placeholder="Enter No Of Working Days">
+				<span asp-validation-for="NoOfWorkingDays" class="text-danger"></span>
+			</div>
+			<div class="form-group ml-3">
+				<label asp-for="NoOfSubjectsPerDay"></label>
+				<input asp-for="NoOfSubjectsPerDay" onfocusout="ValidateInitialRequirements()" class="form-control col-sm-12 col-md-6" id="txtNoOfSubjectsPerDay" placeholder="Enter No Of Subjects Per Day">
+				<span asp-validation-for="NoOfSubjectsPerDay" class="text-danger"></span>
+			</div>
+			<div class="form-group ml-3">
+				<label asp-for="TotalSubjects">Total Subjects</label>
+				<input asp-for="TotalSubjects" onfocusout="ValidateInitialRequirements()" class="form-control col-sm-12 col-md-6" id="txtTotalSubjects" placeholder="Enter Totle Subjects">
+				<span asp-validation-for="TotalSubjects" class="text-danger"></span>
+			</div>
+			
+			<div class="ml-3">
+				<label asp-for="TotalHrsOfWeek" >Total Hrs for Week : </label>
+				<span id="spnTotalHrsOfWeek" class="text-black"></span>
+				<input id="txtTotalHrsOfWeek" asp-for="TotalHrsOfWeek" hidden />
+			</div>
+			<div class="form-group ml-3">
+				<input id="btnSubmit" type="submit" class="btn btn-primary" disabled />
+			</div>
+		</form>
+
+	</div>
+
+</div>
+
+<script>
+	function ValidateInitialRequirements() {
+		let NoOfWorkingDays = document.getElementById("txtNoOfWorkingDays");
+		let NoOfSubjectsPerDay = document.getElementById("txtNoOfSubjectsPerDay");
+		let Submitbtn = document.getElementById("btnSubmit");
+		let TotalHrsOfWeek = document.getElementById("spnTotalHrsOfWeek");
+		let TotalHrsOfWeekInput = document.getElementById("txtTotalHrsOfWeek");
+		let TotalSubjects = document.getElementById("txtTotalSubjects");
+
+		if (NoOfSubjectsPerDay.value.trim() !== "" && NoOfWorkingDays.value.trim() !== "") {
+			TotalHrsOfWeek.textContent = NoOfSubjectsPerDay.value.trim() * NoOfWorkingDays.value.trim();
+			TotalHrsOfWeekInput.value = TotalHrsOfWeek.textContent.trim();
+		}
+
+		if (NoOfSubjectsPerDay.value.trim() !== "" && NoOfWorkingDays.value.trim() !== "" && TotalSubjects.value.trim() !== "")
+		{
+			Submitbtn.disabled = false;
+		} else 
+		{
+			TotalHrsOfWeek.textContent = NoOfSubjectsPerDay.value.trim() * NoOfWorkingDays.value.trim();
+			TotalHrsOfWeekInput.value = TotalHrsOfWeek.textContent.trim();
+			Submitbtn.disabled = true;
+		}
+	}
+</script>

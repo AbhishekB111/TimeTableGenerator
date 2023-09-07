@@ -1,0 +1,28 @@
+﻿@model TimeTableGenerator.ViewModels.InitialRequirementsViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <input asp-for="NoOfWorkingDays" />
+    <form asp-action="Index" asp-controller="Home">
+        <input asp-for="NoOfWorkingDays" />
+        <span asp-validation-for="NoOfWorkingDays" class="text-danger"></span>
+        <input asp-for="NoOfWorkingDays1" id="MyId" onchange="Myfuction()" />
+        <span asp-validation-for="NoOfWorkingDays1"  class="text-danger"></span>
+        <input id="btn" type="submit" value="submit" />
+    </form>
+</div>
+<script>
+    function Myfuction() {
+        var textbox = document.getElementById("MyId");
+        var btn = document.getElementById("btn");
+
+        if(textbox.value.trim() !== "")
+        {
+            btn.style.display = "none";
+        }
+    }
+</script>
